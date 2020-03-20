@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import ReactDOM from "react-dom";
+import Members from "./Components/Members-List";
+import Form from "./Components/Form";
+import "./App.css";
 
 function App() {
   const [formState, setFormState] = useState([
     {
-      Id: 1
-      Name: "BoB"
-      Email: "acb.gmail.com"
-      Role:  "Student"
+      Id: 1,
+      Name: "BoB",
+      Email: "acb.gmail.com",
+      Role: "Student"
     }
   ]);
 
@@ -16,6 +18,11 @@ function App() {
     setFormState([...formState, newForm]);
   };
 
+  return (
+    <div className="App">
+      <Form addMember={addFormHandler} />
+      <Members member={formState} />
+    </div>
+  );
 }
-
 export default App;

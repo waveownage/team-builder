@@ -1,22 +1,55 @@
 import React, { useState } from "react";
-import { withFormik, Form, Field } from "formik";
-import * as Yup from "yup";
-
-
-
 
 const Form = props => {
-    return (
-      <div className="form-list">
-        {props.Form.map(member => (
-          <div className="team-member" key={member.id}>
-            <h2>{member.name}</h2>
-            <p>{member.email}</p>
-            <p>{member.role}</p>
-          </div>
-        ))}
-      </div>
-    );
+  const [formState, setFormState] = useState({
+    name: "",
+    email: "",
+    role: ""
+  });
+
+  const changeHandler = event => {
+    setFormState({
+      ...formState,
+      [event.target.name]: event.target.value
+    });
   };
 
-  export default Form;
+  const handleSubmit = event => {
+    event.preventDefault();
+    props.addMember({
+      ...formState,
+      id: Date.now()
+    });
+  };
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        name="name"
+        value={formState.name}
+        onChange={changeHandler}
+        placeholder="This is the name"
+        autoComplete="none"
+      />
+      <input
+        type="email"
+        name="email"
+        value={formState.email}
+        onChange={changeHandler}
+        placeholder="This is the email"
+        autoComplete="none"
+      />
+      <input
+        type="text"
+        name="role"
+        value={formState.role}
+        onChange={changeHandler}
+        placeholder="This is the role"
+        autoComplete="none"
+      />
+      <button type="submit">New Member!</button>
+    </form>
+  );
+};
+
+export default Form;
